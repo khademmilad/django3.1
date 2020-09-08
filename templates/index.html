@@ -5,4 +5,19 @@
 
 <h1>First Page</h1>
 
+{{ title }} <br>
+{{ content }}
+
+<br><br><br>
+
+{{ list }}
+
+
+<ul>
+{% for item in list %}
+  <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+
 {% endblock %}
