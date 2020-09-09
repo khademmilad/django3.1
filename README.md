@@ -8,3 +8,4 @@ Django Tutorial
 
 برای دیدن آموزش تصویری اینجا کلیک کنید
 
+https://www.youtube.com/watch?v=oXU54EvRFhQ
