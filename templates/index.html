@@ -3,21 +3,17 @@
 
 {% block content %}
 
-<h1>First Page</h1>
+<div class="content">
+  <div class="c-title">
+    <h6>{{ title }}</h6>
+  </div>
+  <div class="c-content">
+<p>{{ content }}</p>
+  </div>
 
-{{ title }} <br>
-{{ content }}
-
-<br><br><br>
-
-{{ list }}
-
-
-<ul>
-{% for item in list %}
-  <li>{{ item }}</li>
-{% endfor %}
-</ul>
-
+  <div class="c-pup">
+    <span>pup date : 15.09.2020</span>
+  </div>
+</div>
 
 {% endblock %}

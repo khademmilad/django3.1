@@ -8,3 +8,9 @@ class Blogform(forms.ModelForm):
             "title",
             "content"
         ]
+
+
+class Contactform(forms.Form):
+    name = forms.CharField()
+    email = forms.EmailField()
+    content = forms.Textarea()

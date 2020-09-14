@@ -1,18 +1,33 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import Blogform
+from .forms import Blogform,Contactform
+from .models import Blog
 
 def index(request):
+    obj = Blog.objects.get(pk=1)
     dic = {
-        "title" : "django",
-        "content" : "some information about django",
-        "list" : ["django","milad",124]
+        "title" : obj.title,
+        "content" : obj.content
     }
     return render(request,'index.html',dic)
 
 
 def contact(request):
-    return render(request,"contact.html",{})
+    if request.method == "POST":
+        form = Contactform(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            email = form.cleaned_data.get("email")
+        print(name,email)
+        print(form.cleaned_data)
+    else:
+        form = Contactform()
+
+    dic = {
+        "form" : form
+        }
+
+    return render(request,"contact.html",dic)
 
 
 
