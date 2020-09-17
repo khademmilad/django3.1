@@ -1,5 +1,5 @@
 from django import forms
-from .models import Blog
+from .models import Blog,ContactBlog
 
 class Blogform(forms.ModelForm):
     class Meta:
@@ -9,8 +9,14 @@ class Blogform(forms.ModelForm):
             "content"
         ]
 
+#
+# class Contactform(forms.Form):
+#     name = forms.CharField()
+#     email = forms.EmailField()
+#     content = forms.Textarea()
 
-class Contactform(forms.Form):
-    name = forms.CharField()
-    email = forms.EmailField()
-    content = forms.Textarea()
+
+class ContactBlogForm(forms.ModelForm):
+    class Meta:
+        model = ContactBlog
+        fields = '__all__'

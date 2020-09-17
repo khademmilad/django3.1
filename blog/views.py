@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import Blogform,Contactform
+from .forms import Blogform,ContactBlogForm
 from .models import Blog
 
 def index(request):
@@ -12,22 +12,37 @@ def index(request):
     return render(request,'index.html',dic)
 
 
+# def contact(request):
+#     if request.method == "POST":
+#         form = Contactform(request.POST)
+#         if form.is_valid():
+#             name = form.cleaned_data.get("name")
+#             email = form.cleaned_data.get("email")
+#         print(name,email)
+#         print(form.cleaned_data)
+#     else:
+#         form = Contactform()
+#
+#     dic = {
+#         "form" : form
+#         }
+#
+#     return render(request,"contact.html",dic)
+
 def contact(request):
+    form = ContactBlogForm()
     if request.method == "POST":
-        form = Contactform(request.POST)
+        form = ContactBlogForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data.get("name")
-            email = form.cleaned_data.get("email")
-        print(name,email)
-        print(form.cleaned_data)
-    else:
-        form = Contactform()
+            form.save()
+            form = ContactBlogForm()
+        else:
+            form = ContactBlogForm()
 
     dic = {
-        "form" : form
-        }
-
-    return render(request,"contact.html",dic)
+    'form' : form
+    }
+    return render(request, "contact.html",dic)
 
 
 
