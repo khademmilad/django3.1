@@ -36,8 +36,6 @@ def contact(request):
         if form.is_valid():
             form.save()
             form = ContactBlogForm()
-        else:
-            form = ContactBlogForm()
 
     dic = {
     'form' : form
