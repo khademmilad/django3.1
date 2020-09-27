@@ -83,11 +83,20 @@
     </div>
 <div class="arch-content">
   <ul>
-    <a href="#"><li>Django</li></a>
-    <a href="#"><li>Django</li></a>
-    <a href="#"><li>Django</li></a>
-    <a href="#"><li>Django</li></a>
-    <a href="#"><li>Django</li></a>
+    {% regroup all_posts by pub_date as objs %}
+
+        {% for group in objs %}
+
+          <!-- <a href="#"><li>{{ group.grouper }}</li></a> -->
+
+          {% for item in group.list %}
+            <a href="#"><li>{{ item }}</li></a>
+
+      {% endfor %}
+
+  {% endfor %}
+
+
   </ul>
 </div>
   </div>
