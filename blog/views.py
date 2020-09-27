@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .forms import Blogform,ContactBlogForm
 from .models import Blog
 
@@ -53,3 +53,14 @@ def blog_create_form(request):
         "form" : form
     }
     return render(request,'blog_create.html',dic)
+
+
+def detail_view(request,my_id):
+    # obj = Blog.objects.get(pk=my_id)
+    obj = get_object_or_404(Blog,pk=my_id)
+
+    dic = {
+        "object" : obj
+    }
+
+    return render(request,"detail.html",dic)

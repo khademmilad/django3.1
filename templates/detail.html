@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="content">
+  <div class="c-title">
+    <h6>{{ object.title }}</h6>
+  </div>
+  <div class="c-content">
+<p>{{ object.content }}</p>
+  </div>
+
+  <div class="c-pup">
+    <span>pup date : {{ object.pub_date }}</span>
+  </div>
+</div>
+
+{% endblock %}
