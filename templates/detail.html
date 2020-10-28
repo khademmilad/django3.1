@@ -5,7 +5,7 @@
 
 <div class="content">
   <div class="c-title">
-    <h6>{{ object.title }}</h6>
+    <h6> <a href="{% url 'blog:detail' my_id=object.id %}">{{ object.title }}</a> </h6>
   </div>
   <div class="c-content">
 <p>{{ object.content }}</p>
