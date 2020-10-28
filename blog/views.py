@@ -4,10 +4,9 @@ from .forms import Blogform,ContactBlogForm
 from .models import Blog
 
 def index(request):
-    obj = Blog.objects.get(pk=1)
+    queryset = Blog.objects.all()
     dic = {
-        "title" : obj.title,
-        "content" : obj.content
+        'posts' : queryset
     }
     return render(request,'index.html',dic)
 
@@ -68,10 +67,9 @@ def detail_view(request,my_id):
 
 
 def delete_post(request,my_id):
-    dic = {}
     obj = get_object_or_404(Blog, pk=my_id)
     if request.method == "POST":
         obj.delete()
         return HttpResponseRedirect("/")
 
-    return render(request,"delete_post.html",dic)
+    return render(request,"delete_post.html")
