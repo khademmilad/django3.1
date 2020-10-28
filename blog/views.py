@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,HttpResponseRedirect
 from .forms import Blogform,ContactBlogForm
 from .models import Blog
 
@@ -64,3 +64,14 @@ def detail_view(request,my_id):
     }
 
     return render(request,"detail.html",dic)
+
+
+
+def delete_post(request,my_id):
+    dic = {}
+    obj = get_object_or_404(Blog, pk=my_id)
+    if request.method == "POST":
+        obj.delete()
+        return HttpResponseRedirect("/")
+
+    return render(request,"delete_post.html",dic)
