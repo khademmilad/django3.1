@@ -3,7 +3,7 @@ from django.shortcuts import render,get_object_or_404,HttpResponseRedirect
 from .forms import Blogform,ContactBlogForm
 from .models import Blog
 from django.views.generic import ListView
-
+from comment.models import Comment,ReplyComment
 
 class BlogList(ListView):
     template_name = 'index.html'
@@ -64,9 +64,15 @@ def blog_create_form(request):
 def detail_view(request,my_id):
     # obj = Blog.objects.get(pk=my_id)
     obj = get_object_or_404(Blog,pk=my_id)
+    comments = Comment.objects.filter(blog_id=my_id)
+    is_active = True
+    
 
     dic = {
-        "object" : obj
+        "object" : obj,
+        "comments":comments,
+        "is_active":is_active,
+        # "comment_user":comment_user
     }
 
     return render(request,"detail.html",dic)

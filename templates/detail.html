@@ -16,4 +16,30 @@
   </div>
 </div>
 
+{% if comments %}
+
+    {% for comment in comments %}
+
+      <ul>
+        <li>{{ comment.comment }}
+            <ul>
+              <li>@ {{comment.user.username}} | {{comment.time }}</li><br>
+              {% if re_comments %}
+                <li></li>
+              {% endif %}
+            </ul>
+        </li>
+      </ul>
+    {% endfor %}
+
+{% else %}
+
+    <ul>
+      <li>No Comments for this post !</li>
+    </ul>
+
+
+
+{% endif %}
+
 {% endblock %}

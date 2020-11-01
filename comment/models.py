@@ -11,7 +11,7 @@ class Comment(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.blog.title
+        return f"{self.id},{self.blog.title}"
 
     def block_comment(self):
         if self.is_active == True:
@@ -25,4 +25,4 @@ class ReplyComment(models.Model):
     time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.comment.blog.title
+        return f"{self.comment.id},{self.comment.blog.title}"
