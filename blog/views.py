@@ -4,6 +4,7 @@ from .forms import Blogform,ContactBlogForm
 from .models import Blog
 from django.views.generic import ListView
 from comment.models import Comment,ReplyComment
+from comment.forms import CommentForm
 
 class BlogList(ListView):
     template_name = 'index.html'
@@ -67,22 +68,37 @@ def detail_view(request,my_id):
     # get comment from Comment with pk
     comments = Comment.objects.filter(blog_id=my_id)
     is_active = True
-    # get re_comment from ReplyComment with comment's id
-    re_comments = []
-    for comment in comments:
-        c_id = comment.id
-        re_comments.append(ReplyComment.objects.filter(comment_id=c_id))
 
     dic = {
         "object" : obj,
         "comments":comments,
         "is_active":is_active,
-        "re_comments":re_comments
+        # "re_comments":re_comments
     }
-    print(re_comments)
 
     return render(request,"detail.html",dic)
 
+
+
+def comment_create_form(request,*args,**kwargs):
+    blog = Blog.objects.get(pk=1)
+    user = request.user
+    # blog_post = kwargs.get("blog_id")
+
+    initial_data = {
+        'blog' : blog,
+        'user' : user,
+    }
+    form = CommentForm(request.POST or None ,initial=initial_data)
+    if form.is_valid():
+        form.save()
+
+    dic = {
+        'form':form
+    }
+    # print(blog_id)
+
+    return render(request,"create_comment.html",dic)
 
 
 def delete_post(request,my_id):
