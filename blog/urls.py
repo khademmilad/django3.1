@@ -4,7 +4,7 @@ from blog import views
 app_name = 'blog'
 
 urlpatterns = [
-    path('',views.index,name="index"),
+    path('',views.BlogList.as_view(),name="index"),
     path('contact',views.contact,name="contact"),
     path('blog_create',views.blog_create_form),
     path("detail/<int:my_id>",views.detail_view,name='detail'),

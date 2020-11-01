@@ -2,7 +2,7 @@
 
 
 {% block content %}
-  {% for post in posts %}
+  {% for post in object_list %}
   <div class="content">
     <div class="c-title">
       <h6> <a href="{% url 'blog:detail' my_id=post.id %}">{{ post.title }}</a> </h6>

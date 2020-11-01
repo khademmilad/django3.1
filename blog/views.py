@@ -2,13 +2,20 @@ from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404,HttpResponseRedirect
 from .forms import Blogform,ContactBlogForm
 from .models import Blog
+from django.views.generic import ListView
 
-def index(request):
+
+class BlogList(ListView):
+    template_name = 'index.html'
     queryset = Blog.objects.all()
-    dic = {
-        'posts' : queryset
-    }
-    return render(request,'index.html',dic)
+
+
+# def index(request):
+#     queryset = Blog.objects.all()
+#     dic = {
+#         'posts' : queryset
+#     }
+#     return render(request,'index.html',dic)
 
 
 # def contact(request):
