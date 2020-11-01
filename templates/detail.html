@@ -21,12 +21,16 @@
     {% for comment in comments %}
 
       <ul>
-        <li>{{ comment.comment }}
+        <li>{{comment.pk}},{{ comment.comment }}
             <ul>
-              <li>@ {{comment.user.username}} | {{comment.time }}</li><br>
-              {% if re_comments %}
-                <li></li>
-              {% endif %}
+              <li class="comment-detail">@ {{comment.user.username}} | {{comment.time }}</li>
+              <hr>
+              {# {% if re_comments %} #}
+                {% for reply in comment.recomment.all %}
+                  <li>{{ reply.re_comment }}</li>
+                  <li class="comment-detail">@ {{reply.user.username}} | {{reply.time }}</li>
+                {% endfor %}
+              {# {% endif %} #}
             </ul>
         </li>
       </ul>

@@ -64,16 +64,22 @@ def blog_create_form(request):
 def detail_view(request,my_id):
     # obj = Blog.objects.get(pk=my_id)
     obj = get_object_or_404(Blog,pk=my_id)
+    # get comment from Comment with pk
     comments = Comment.objects.filter(blog_id=my_id)
     is_active = True
-    
+    # get re_comment from ReplyComment with comment's id
+    re_comments = []
+    for comment in comments:
+        c_id = comment.id
+        re_comments.append(ReplyComment.objects.filter(comment_id=c_id))
 
     dic = {
         "object" : obj,
         "comments":comments,
         "is_active":is_active,
-        # "comment_user":comment_user
+        "re_comments":re_comments
     }
+    print(re_comments)
 
     return render(request,"detail.html",dic)
 
