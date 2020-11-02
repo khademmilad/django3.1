@@ -65,40 +65,32 @@ def blog_create_form(request):
 def detail_view(request,my_id):
     # obj = Blog.objects.get(pk=my_id)
     obj = get_object_or_404(Blog,pk=my_id)
+    user = request.user
     # get comment from Comment with pk
     comments = Comment.objects.filter(blog_id=my_id)
     is_active = True
+    # creat_comment part
+    # initial_data = {
+    #     'blog':obj,
+    #     'user':user
+    # }
 
+    form = CommentForm(request.POST)
+    if request.method == "POST" and form.is_valid():
+        instance = form.save(commit=False)
+        instance.blog = obj
+        instance.user = user
+        instance.save()
+    form = CommentForm()
     dic = {
         "object" : obj,
         "comments":comments,
         "is_active":is_active,
-        # "re_comments":re_comments
+        "form" : form
     }
-
+    print(form.as_p)
     return render(request,"detail.html",dic)
 
-
-
-def comment_create_form(request,*args,**kwargs):
-    blog = Blog.objects.get(pk=1)
-    user = request.user
-    # blog_post = kwargs.get("blog_id")
-
-    initial_data = {
-        'blog' : blog,
-        'user' : user,
-    }
-    form = CommentForm(request.POST or None ,initial=initial_data)
-    if form.is_valid():
-        form.save()
-
-    dic = {
-        'form':form
-    }
-    # print(blog_id)
-
-    return render(request,"create_comment.html",dic)
 
 
 def delete_post(request,my_id):
