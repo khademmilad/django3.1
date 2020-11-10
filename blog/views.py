@@ -1,10 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404,HttpResponseRedirect
 from .forms import Blogform,ContactBlogForm
-from .models import Blog
+from .models import Blog,ContactBlog
 from django.views.generic import ListView
 from comment.models import Comment,ReplyComment
 from comment.forms import CommentForm
+from django.http import JsonResponse
 
 class BlogList(ListView):
     template_name = 'index.html'
@@ -37,12 +38,17 @@ class BlogList(ListView):
 #     return render(request,"contact.html",dic)
 
 def contact(request):
-    form = ContactBlogForm()
+    form = ContactBlogForm(request.POST or None)
+    data = {}
     if request.method == "POST":
-        form = ContactBlogForm(request.POST)
-        if form.is_valid():
-            form.save()
-            form = ContactBlogForm()
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        content = request.POST.get('content')
+        ContactBlog.objects.create(name=name, email = email, content = content)
+        data['name']=name
+        data['email']=email
+        data['content']=content
+        return JsonResponse(data, safe=False)
 
     dic = {
     'form' : form
